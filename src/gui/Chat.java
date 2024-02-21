@@ -8,7 +8,7 @@ import util.ChatUsers;
 public class Chat extends JFrame{
     public JLabel nicknameLabel;
     private JButton sendButton;
-    public static JTextArea chatBox;
+    public  JTextArea chatBox;
     public JTextField messageTextField;
     private JPanel chatPanel;
 
@@ -25,7 +25,7 @@ public class Chat extends JFrame{
     public static void main(String[] args) {
         Chat c = new Chat();
 
-        chatBox.setEditable(false);
+        c.chatBox.setEditable(false);
         c.setContentPane(c.chatPanel);
         c.setSize(400,500);
         c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

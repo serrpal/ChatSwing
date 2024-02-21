@@ -48,17 +48,22 @@
         </constraints>
         <properties/>
       </component>
-      <component id="a07dc" class="javax.swing.JTextArea" binding="chatBox">
+      <scrollpane id="2d295">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="300" height="300"/>
-          </grid>
+          <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <editable value="false"/>
-          <text value=""/>
-        </properties>
-      </component>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="a07dc" class="javax.swing.JTextArea" binding="chatBox">
+            <constraints/>
+            <properties>
+              <editable value="false"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>

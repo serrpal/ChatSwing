@@ -1,5 +1,6 @@
 package util;
 
+import data.User;
 import gui.Chat;
 import gui.Login;
 
@@ -11,20 +12,22 @@ public class ChatServer extends Thread{
     public static void main(String[] args) {
         Chat c = new Chat();
         Login l = new Login();
+        User u = new User();
         int puerto = 12345;
         try {
-            ServerSocket server = new ServerSocket(puerto);
-            Socket client = server.accept();
+            DatagramSocket server = new DatagramSocket(puerto);
+            byte[] buffer = new byte[256];
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            server.receive(packet);
 
-            while(!client.isClosed()) {
-                byte[] buffer = new byte[256];
+            while(!server.isClosed()) {
                 DatagramPacket entrada = new DatagramPacket(buffer, buffer.length);
 
                 String texto = new String(entrada.getData());
 
                 JLabel jl = new JLabel();
                 jl.setText(" <" + l.nicknameLabel.getText() + "> : " + texto);
-                Chat.chatBox.add(jl);
+                c.chatBox.add(jl);
             }
 
             server.close();
