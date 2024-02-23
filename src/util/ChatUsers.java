@@ -4,7 +4,6 @@ import datos.User;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 public class ChatUsers {
     private static final String SERVER_HOST = "localhost";
