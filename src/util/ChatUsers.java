@@ -1,26 +1,24 @@
 package util;
 
-import gui.Chat;
+import datos.User;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+public class ChatUsers {
+    private static final String SERVER_HOST = "localhost";
+    private static final int SERVER_PORT = 12345;
 
-public class ChatUsers extends Thread{
-    public static void main(String[] args) {
-    }
-    public void getMessage(String ms){
-        Chat chat = new Chat();
-        int puerto = 12345;
-        try {
-            MulticastSocket socket=new MulticastSocket();
-            byte[] mensaje=ms.getBytes();
-            DatagramPacket dp=new DatagramPacket(mensaje,mensaje.length, InetAddress.getByName("225.0.0.1"),puerto);
-            socket.send(dp);
-            socket.close();
+    public static void sendMessage(String nickname, String message) {
+        try (Socket socket = new Socket(SERVER_HOST, SERVER_PORT);
+             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+
+            User user = new User(nickname, message);
+            out.writeObject(user);
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }
