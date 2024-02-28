@@ -19,6 +19,7 @@ public class ChatServer implements Runnable{
     private int port = 12345;
 
     public ChatServer(){
+        clientsConnected = new ArrayList<>();
         exit = false;
     }
 
@@ -28,6 +29,8 @@ public class ChatServer implements Runnable{
             server = new ServerSocket(port);
             while (!exit){
                 Socket client = server.accept();
+                Handler handler = new Handler(client);
+                clientsConnected.add(handler);
             }
         }catch (IOException e){
             exit();
@@ -104,5 +107,10 @@ public class ChatServer implements Runnable{
                 //Can't handle exception
             }
         }
+    }
+
+    public static void main(String[] args) {
+        ChatServer chatServer = new ChatServer();
+        chatServer.run();
     }
 }
