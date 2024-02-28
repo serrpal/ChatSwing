@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Chat extends JFrame {
-    public static JLabel nicknameLabel;
+    public  JLabel nicknameLabel;
     private JButton sendButton;
     public JTextArea chatBox;
     public JTextField messageTextField;

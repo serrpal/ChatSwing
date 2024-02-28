@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class ChatServer implements Runnable{
@@ -17,6 +19,7 @@ public class ChatServer implements Runnable{
     private ServerSocket server;
     private boolean exit;
     private int port = 12345;
+    private ExecutorService pool;
 
     public ChatServer(){
         clientsConnected = new ArrayList<>();
@@ -27,10 +30,12 @@ public class ChatServer implements Runnable{
     public void run() {
         try {
             server = new ServerSocket(port);
+            pool = Executors.newCachedThreadPool();
             while (!exit){
                 Socket client = server.accept();
                 Handler handler = new Handler(client);
                 clientsConnected.add(handler);
+                pool.execute(handler);
             }
         }catch (IOException e){
             exit();
@@ -43,7 +48,7 @@ public class ChatServer implements Runnable{
             try {
                 server.close();
             }catch(IOException e){
-                //Can't handle this exceptionn
+                exit();
             }
         }
         for (Handler ch : clientsConnected){
