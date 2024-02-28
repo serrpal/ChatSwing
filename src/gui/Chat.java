@@ -1,7 +1,5 @@
 package gui;
 
-import util.ChatUsers;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +19,6 @@ public class Chat extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String message = messageTextField.getText();
                 if (!message.isEmpty()) {
-                    ChatUsers.sendMessage(nickname, message);
                     messageTextField.setText(""); // Clear the message text field after sending
                 } else {
                     JOptionPane.showMessageDialog(null, "No puedes enviar un mensaje vacío");
