@@ -30,7 +30,21 @@ public class ChatServer implements Runnable{
                 Socket client = server.accept();
             }
         }catch (IOException e){
-            //TODO
+            exit();
+        }
+    }
+
+    public void exit(){
+        exit = true;
+        if (!server.isClosed()){
+            try {
+                server.close();
+            }catch(IOException e){
+                //Can't handle this exceptionn
+            }
+        }
+        for (Handler ch : clientsConnected){
+            ch.exit();
         }
     }
 
@@ -54,16 +68,40 @@ public class ChatServer implements Runnable{
                 //Shows nickname to all clients connected
                 broadcastMessage(username + " se unió al chat");
 
+                String message;
+                while ((message = in.readLine())!=null){
+                    if (message.startsWith("/quit")){
+                        broadcastMessage("<"+username+"> se fue del chat");
+                        exit();
+                    }else{
+                        broadcastMessage("<"+username+"> : "+message);
+                    }
+                }
             }catch (IOException e){
-                //TODO : handle exception
+                exit();
             }
         }
 
         public void broadcastMessage(String message){
             for (Handler ch : clientsConnected){
                 if (ch!=null){
-                    //TODO
+                    ch.sendMessage(message);
                 }
+            }
+        }
+        public void sendMessage(String message){
+            out.println(message);
+        }
+
+        public void exit(){
+            try {
+                in.close();
+                out.close();
+                if (!client.isClosed()){
+                    client.close();
+                }
+            }catch (IOException e){
+                //Can't handle exception
             }
         }
     }
