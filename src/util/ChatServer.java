@@ -2,13 +2,13 @@ package util;
 
 import gui.Chat;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class ChatServer implements Runnable{
 
@@ -29,6 +29,22 @@ public class ChatServer implements Runnable{
             }
         }catch (IOException e){
             //TODO
+        }
+    }
+
+    class Handler implements Runnable{
+
+        private Socket client;
+        private BufferedReader in;
+        private PrintWriter out;
+        private String username;
+
+        public Handler(Socket client){
+            this.client=client;
+        }
+        @Override
+        public void run() {
+
         }
     }
 }
